@@ -17,3 +17,20 @@
     border-top-right-radius: .5rem;
     border-top-left-radius: .5rem;
 }
+
+.editor-header--collapse-button {
+    border: none;
+    background-color: hsl(0, 0%, 5%);
+}
+
+.editor-header--collapse-button:hover {
+    cursor: pointer;
+}
+
+.editor-header--collapse-icon {
+    vertical-align: middle;
+    width: 2.5rem;
+    height: 2.5rem;
+    fill: white;
+    overflow: hidden;
+}
