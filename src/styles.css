@@ -21,3 +21,11 @@ body {
     line-height: 1.7;
     color: black;
 }
+
+.CodeMirror {
+    height: 100%!important;
+    flex-grow: 1;
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+    overflow: hidden;
+}

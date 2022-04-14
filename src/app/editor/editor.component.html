@@ -1,0 +1,13 @@
+<div class="editor-container">
+  <div class="editor-header">
+    <span class="editor-header--title">{{ editorName }}</span>
+    <button class="editor-header--button">O/C</button>
+  </div>
+  <ngx-codemirror
+    (ngModelChange)="handleChange($event)"
+    [options]="options"
+    [(ngModel)]="defaults[mode]"
+    [disabled]="readOnly"
+    [autoFocus]="true"
+  ></ngx-codemirror>
+</div>

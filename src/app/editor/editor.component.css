@@ -1,0 +1,19 @@
+.editor-container {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-direction: column;
+    padding: .5rem;
+    background-color: hsl(225, 6%, 25%);
+    width: 33vw;
+    height: 90%;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: hsl(225, 6%, 25%);
+    color: white;
+    padding: .5rem .5rem .5rem 1rem;
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+}

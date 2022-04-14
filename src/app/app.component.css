@@ -1,0 +1,10 @@
+.top-pane {
+    background-color: hsl(225,6%,25%);
+}
+
+.pane {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: space-around;
+}

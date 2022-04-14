@@ -1,42 +1,59 @@
-import { Component } from '@angular/core';
-import { materialize } from 'rxjs';
+import { Component, OnChanges, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-const defaults = {
-  'text/javascript': `const string = 'Hello World';
-console.log(string);\n`,
-  'text/html': `<p>Hello World!</p>\n`,
-  'text/css': `body {
-    color: red;
-  }\n`
-};
+interface DefaultsInterface {
+  [key: string]: string;
+}
+
+interface ChangedContent {
+  mode: string;
+  change: string;
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  readOnly = false;
-  mode: keyof typeof defaults = 'text/javascript';
-  options = {
-    lineNumbers: true,
-    theme: 'material',
-    gutter: true,
-    mode: this.mode,
-  };
-  defaults = defaults;
+  htmlContent: string = '<p>Paragraph</p>';
+  cssContent: string = '';
+  scriptContent: string = '';
 
-  changeMode(): void {
-    this.options = {
-      ...this.options,
-      mode: this.mode,
-    };
+  srcDoc: string | null = `
+  <html>
+    <head></head>
+    <body>${this.htmlContent}</body>
+  </html>`;
+
+  constructor(public sanitizer: DomSanitizer) {}
+
+  setInitialContent(initialContent: DefaultsInterface) {
+    this.onChanged({
+      mode: 'text/html',
+      change: initialContent['text/html'],
+    });
   }
 
-  handleChange($event: Event): void {
-    console.log('ngModelChange', $event);
-  }
-
-  clear(): void {
-    this.defaults[this.mode] = '';
+  onChanged(newContent: ChangedContent) {
+    switch(newContent.mode) {
+      case 'text/html':
+        this.htmlContent = newContent.change;
+        break;
+      case 'text/css':
+        this.cssContent = newContent.change;
+        break;
+      case 'text/javascript':
+        this.scriptContent = newContent.change;
+        break;
+    }
+    
+    this.srcDoc = `
+    <html>
+      <head></head>
+      <body>${this.htmlContent}</body>
+      <style>${this.cssContent}</style>
+      <script>${this.scriptContent}</script>
+    </html>`;
   }
 }
