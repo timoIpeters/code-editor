@@ -11,7 +11,7 @@
 .editor-header {
     display: flex;
     justify-content: space-between;
-    background-color: hsl(225, 6%, 25%);
+    background-color: hsl(0, 0%, 5%);
     color: white;
     padding: .5rem .5rem .5rem 1rem;
     border-top-right-radius: .5rem;
