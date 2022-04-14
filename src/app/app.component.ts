@@ -22,7 +22,11 @@ export class AppComponent {
 
   srcDoc: string = '';
 
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer) {
+    window.addEventListener('beforeunload', function (e) {
+      e.preventDefault();
+    });
+  }
 
   setInitialContent(initialContent: DefaultsInterface) {
     this.onChanged({
