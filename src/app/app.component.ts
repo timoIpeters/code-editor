@@ -20,11 +20,7 @@ export class AppComponent {
   cssContent: string = '';
   scriptContent: string = '';
 
-  srcDoc: string | null = `
-  <html>
-    <head></head>
-    <body>${this.htmlContent}</body>
-  </html>`;
+  srcDoc: string = '';
 
   constructor(public sanitizer: DomSanitizer) {}
 
