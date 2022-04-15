@@ -4,12 +4,5 @@
   <app-editor [editorName]="'JS'" [mode]="'text/javascript'" (contentChange)="onChanged($event)" (initialContent)="setInitialContent($event)"></app-editor>
 </div>
 <div class="pane">
-  <iframe
-    srcdoc="{{srcDoc}}"
-    title="output"
-    sandbox="allow-scripts"
-    frameborder="0"
-    width="100%"
-    height="100%"
-  ></iframe>
+  <div [innerHTML]="output" class="output"></div>
 </div>

@@ -1,4 +1,10 @@
-import { Component, OnChanges, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnInit,
+  SecurityContext,
+  SimpleChanges,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface DefaultsInterface {
@@ -21,6 +27,7 @@ export class AppComponent {
   scriptContent: string = '';
 
   srcDoc: string = '';
+  output: SafeHtml = '';
 
   constructor(public sanitizer: DomSanitizer) {
     window.addEventListener('beforeunload', function (e) {
@@ -33,10 +40,20 @@ export class AppComponent {
       mode: 'text/html',
       change: initialContent['text/html'],
     });
+
+    this.onChanged({
+      mode: 'text/css',
+      change: initialContent['text/css'],
+    });
+
+    this.onChanged({
+      mode: 'text/javascript',
+      change: initialContent['text/javascript'],
+    });
   }
 
   onChanged(newContent: ChangedContent) {
-    switch(newContent.mode) {
+    switch (newContent.mode) {
       case 'text/html':
         this.htmlContent = newContent.change;
         break;
@@ -47,7 +64,7 @@ export class AppComponent {
         this.scriptContent = newContent.change;
         break;
     }
-    
+
     this.srcDoc = `
     <html>
       <head></head>
@@ -55,5 +72,14 @@ export class AppComponent {
       <style>${this.cssContent}</style>
       <script>${this.scriptContent}</script>
     </html>`;
+
+    this.output = this.sanitizer.bypassSecurityTrustHtml(`
+<iframe
+    srcdoc="${this.srcDoc}"
+    sandbox="allow-scripts"
+    frameborder="0"
+    width="100%"
+    height="100%"
+  ></iframe>`);
   }
 }
